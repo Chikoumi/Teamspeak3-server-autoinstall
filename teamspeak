@@ -10,7 +10,7 @@
 # Short-Description: TeamSpeak 3 server
 # Description: TeamSpeak 3 server
 ### END INIT INFO
- 
+
 TS_PATH="/home/teamspeak/teamspeak3-server_linux-amd64/ts3server_startscript.sh"
 TS_USER="teamspeak"
 INI_FILE="ts3server.ini"
