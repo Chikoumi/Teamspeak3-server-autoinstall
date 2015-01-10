@@ -1,0 +1,45 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides: ts3
+# Required-Start: $local_fs $remote_fs
+# Required-Stop: $local_fs $remote_fs
+# Should-Start: $network
+# Should-Stop: $network
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: TeamSpeak 3 server
+# Description: TeamSpeak 3 server
+### END INIT INFO
+ 
+TS_PATH="/home/teamspeak/teamspeak3-server_linux-amd64/ts3server_startscript.sh"
+TS_USER="teamspeak"
+INI_FILE="ts3server.ini"
+ 
+start_ts() {
+	echo "Lancement du serveur TeamSpeak"
+        chown -R teamspeak:teamspeak /home/teamspeak/ && chmod 775 -R /home/teamspeak/
+	su $TS_USER -c "$TS_PATH start"
+}
+ 
+stop_ts() {
+	echo "Arrêt du serveur TeamSpeak"
+	killall -u $TS_USER > /dev/null
+        chown -R teamspeak:teamspeak /home/teamspeak/ && chmod 775 -R /home/teamspeak/
+}
+ 
+case "$1" in
+	start)
+		start_ts
+		;;
+	stop)
+		stop_ts
+		;;
+	restart)
+		stop_ts
+		sleep 2
+		start_ts
+		;;
+	*)
+		echo "Usage du script : $0 {start|stop|restart}"
+		;;
+esac
